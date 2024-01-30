@@ -1,14 +1,16 @@
 package main;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-//Studentille tarvitaan varmaankin lista jonne laitetaan opintosuoritukset eli Grade luokan oliot?
 
-public class Student {
+
+public class Student implements Serializable {
     private String sOpiskelijanNimi;
     private String sOpiskelijanNumero;
+    private static final long SerialVersionUID = 93429343;
     ArrayList<Grade> arraylistGrades = new ArrayList<>();
     
     
@@ -28,9 +30,9 @@ public void printSpecs (){
 
 }
 
-public void addGrade(String sKurssi, int iArvosana){
+public void addGrade(String course, int Grade){
 
-    arraylistGrades.add(new Grade(sKurssi, iArvosana));
+    arraylistGrades.add(new Grade(course, Grade));
 
 }
 
@@ -46,28 +48,37 @@ public void listGrades(){
     }
 }
 
-public float countAverage (){
+public double countAverage (){
     int iGrade;
     int iRounds = 0;
     float fSumma = 0;
-    float fAverage;
+    double dAverage;
+    
+    if(arraylistGrades.size()>0){
     for(Grade grade : arraylistGrades){
         iRounds++;
         iGrade = grade.getGrade();
         fSumma = iGrade + fSumma;
-        System.out.println(iRounds);
+        ;
         
 
     }
-    fAverage = fSumma/iRounds;
-    System.out.println(fAverage);
+    dAverage = fSumma/iRounds;
+    
 
-    return(fAverage);
+    
+} else {
+    dAverage = 0;
+
+}
+return(dAverage);
 }
 
 public double countMedian(){
     double dMedian;
     ArrayList<Integer> iNumbers = new ArrayList<>();
+
+    if(arraylistGrades.size()>0){
     for(Grade grade : arraylistGrades){
         int iGrade = grade.getGrade();
         iNumbers.add(iGrade);
@@ -78,12 +89,16 @@ public double countMedian(){
     
         int middle = iNumbers.size()/2;
         if (iNumbers.size()%2==1){
-            //fMedian = (iNumbers.get(iNumbers.size()/2) + iNumbers.get(iNumbers.size()/2-1))/2;
+            
             dMedian = iNumbers.get(middle);
         } else {
             dMedian = (iNumbers.get(middle - 1) + iNumbers.get(middle))/2.0;
         }
-    return(dMedian);
+    
+}else{
+    dMedian=0;
+}
+return(dMedian);
 }
 
 }

@@ -13,9 +13,11 @@ public class App
         String sKurssi;
         int iArvosana;
         int iIndeksi;
-        float fAverage;
+        double dAverage;
+        double dMedian;
 
         University university = new University();
+        Calculator calculator = new Calculator();
         while(exit == false){
             System.out.println("1) Lisää opiskelija, 2) Listaa opiskelijat, 3) Lisää opiskelijalle suorite, 4) Listaa opiskelijan suoritteet, 5) Laske opiskelijan suoritusten keskiarvo, 6) Laske opiskelijan suoritusten mediaani, 7) Tallenna opiskelijat tiedostoon, 8) Lataa opiskelijat tiedostosta, 0) Lopeta ohjelma");
         if(sc.hasNext()){
@@ -42,7 +44,7 @@ public class App
                 university.listStudents2();
                 System.out.println("Mille opiskelijalle suorite lisätään?");
                 iIndeksi = Integer.parseInt(sc.nextLine());
-                System.out.println("Mille kurssille suorite lisätään");
+                System.out.println("Mille kurssille suorite lisätään?");
                 sKurssi = sc.nextLine();
                 System.out.println("Mikä arvosana kurssille lisätään?");
                 iArvosana = Integer.parseInt(sc.nextLine());
@@ -59,20 +61,26 @@ public class App
                 university.listStudents2();
                 System.out.println("Minkä opiskelijan suoritteiden keskiarvo lasketaan?");
                 iIndeksi= Integer.parseInt(sc.nextLine());
-                fAverage = university.countAverage(iIndeksi);
-                System.out.println("Keskiarvo on " + fAverage);
+                Student student = university.getStudent(iIndeksi);
+                //fAverage = university.countAverage(iIndeksi);
+                dAverage = calculator.getAverageGrade(student);
+                System.out.println("Keskiarvo on " + dAverage);
                 break;
                 case 6:
                 university.listStudents2();
                 System.out.println("Minkä opiskelijan suoritteiden mediaani lasketaan?");
                 iIndeksi= Integer.parseInt(sc.nextLine());
-                double dMedian = university.countMedian(iIndeksi);
+                Student student2 = university.getStudent(iIndeksi);
+                //double dMedian = university.countMedian(iIndeksi);
+                dMedian = calculator.getMedianGrade(student2);
                 System.out.println("Mediaani on " + dMedian);
 
                 break;
                 case 7:
+                university.saveStudents();
                 break;
                 case 8:
+                university.readStudents();
                 break;
                 case 0:
                 System.out.println("Kiitos ohjelman käytöstä.");

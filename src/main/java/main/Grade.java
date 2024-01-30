@@ -1,8 +1,11 @@
 package main;
 
-public class Grade {
+import java.io.Serializable;
+
+public class Grade implements Serializable{
     String sKurssinimi;
     int iKurssiArvosana;
+    private static final long serialVersionUID = 95732453;
 
 public Grade (String sNimi, int iLuku){
     this.sKurssinimi = sNimi;
@@ -10,7 +13,7 @@ public Grade (String sNimi, int iLuku){
 }
 
 public void printSpecs(){
-    System.err.println(sKurssinimi + ": " + iKurssiArvosana);
+    System.out.println(sKurssinimi + ": " + iKurssiArvosana);
 }
 
 public int getGrade(){
